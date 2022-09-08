@@ -9,23 +9,21 @@ Provide a test suite verifying your solution, use any testing framework you feel
 
 ## The test
 
-The requirement is to build a fee calculator that - given a monetary **amount** and a **term** (the contractual duration of the loan, expressed as a number of months) - will produce an appropriate fee for a loan, based on a fee structure and a set of rules described below. A general contract for this functionality is defined in the interface `FeeCalculator`.
+The requirement is to build a fee calculator that - given a monetary **amount** - will produce an appropriate fee for a loan, based on a fee structure and a set of rules described below. A general contract for this functionality is defined in the interface `FeeCalculator`.
 
 Implement your solution such that it fulfils the requirements.
 
 - The fee structure does not follow a formula.
 - Values in between the breakpoints should be interpolated linearly between the lower bound and upper bound that they fall between.
 - The number of breakpoints, their values, or storage might change.
-- The term can be either 12 or 24 (number of months), you can also assume values will always be within this set.
 - The fee should be rounded up such that fee + loan amount is an exact multiple of 5.
-- The minimum amount for a loan is 1,000 PLN, and the maximum is 20,000 PLN.
-- You can assume values will always be within this range but they may be any value up to 2 decimal places.
+- The minimum amount for a loan is 1,000 PLN, and the maximum is 20,000 PLN and you can assume that it will always be in this range.
 
 Example inputs/outputs:
-|Loan amount  |Term       |Fee     |
-|-------------|-----------|--------|
-|11,500 PLN   |24 months  |460 PLN |
-|19,250 PLN   |12 months  |385 PLN |
+|Loan amount  |Fee     |
+|-------------|--------|
+|6500 PLN     |130 PLN |
+|19,250 PLN   |385 PLN |
 
 # Installation
 A database or any other external dependency is not required for this test.
@@ -43,15 +41,14 @@ use PragmaGoTech\Interview\Model\LoanProposal;
 
 $calculator = new FeeCalculator();
 
-$application = new LoanProposal(24, 2750);
+$application = new LoanProposal(2750);
 $fee = $calculator->calculate($application);
-// $fee = (float) 115.0
+// $fee = (float) 90.0
 ```
 
 # Fee Structure
 The fee structure doesn't follow particular algorithm and it is possible that same fee will be applicable for different amounts.
 
-### Term 12
 ```
 1000 PLN: 50 PLN
 2000 PLN: 90 PLN
@@ -73,29 +70,4 @@ The fee structure doesn't follow particular algorithm and it is possible that sa
 18000 PLN: 360 PLN
 19000 PLN: 380 PLN
 20000 PLN: 400 PLN
-```
-
-### Term 24
-
-```
-1000 PLN: 70 PLN
-2000 PLN: 100 PLN
-3000 PLN: 120 PLN
-4000 PLN: 160 PLN
-5000 PLN: 200 PLN
-6000 PLN: 240 PLN
-7000 PLN: 280 PLN
-8000 PLN: 320 PLN
-9000 PLN: 360 PLN
-10000 PLN: 400 PLN
-11000 PLN: 440 PLN
-12000 PLN: 480 PLN
-13000 PLN: 520 PLN
-14000 PLN: 560 PLN
-15000 PLN: 600 PLN
-16000 PLN: 640 PLN
-17000 PLN: 680 PLN
-18000 PLN: 720 PLN
-19000 PLN: 760 PLN
-20000 PLN: 800 PLN
 ```
