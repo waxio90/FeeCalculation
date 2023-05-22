@@ -11,5 +11,8 @@
         "psr-4": {
             "PragmaGoTech\\Interview\\": "src/"
         }
+    },
+    "require": {
+        "phpunit/phpunit": "^10.1"
     }
 }
