@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PragmaGoTech\Interview;
 
+use Exception;
 use PragmaGoTech\Interview\Model\LoanProposal;
 
 class LinearInterpolationStrategy implements FeeCalculator
@@ -41,7 +42,7 @@ class LinearInterpolationStrategy implements FeeCalculator
     /**
      * @param LoanProposal $application
      * @return float
-     * @throws \Exception
+     * @throws Exception
      */
     public function calculate(LoanProposal $application): float
     {
@@ -62,7 +63,7 @@ class LinearInterpolationStrategy implements FeeCalculator
         $feeUpper = $this->feeStructure[$upperBound] ?? null;
 
         if ($feeLower === null || $feeUpper === null) {
-            throw new \Exception('Fee structure is missing required values.');
+            throw new Exception('Fee structure is missing required values.');
         }
 
         $interpolationFactor = ($loanAmount - $lowerBound) / ($upperBound - $lowerBound);
